@@ -13,9 +13,18 @@ app.use("/api", indexRouter);
 
 const mongoURI = MONGODB_URI_PROD;
 
-mongoose.connect(mongoURI,{useNewUrlParser:true}).then(() => {
+const port = process.env.PORT || 5000;
+app.listen(port, () => {
+  console.log(`Server is running on port ${port}`);
+});
 
-}).catch((err)=>{console.log("DB connectino fail", err)});
+mongoose.connect(mongoURI,{useNewUrlParser:true})
+        .then(() => {
+            console.log("mongoose connected");
+        })
+        .catch((err)=>{
+            console.log("DB connectino fail", err)
+        });
 
 app.listen(5000, () => {
     console.log("server on 5000")
