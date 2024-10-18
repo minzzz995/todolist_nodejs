@@ -22,6 +22,19 @@ taskController.getTask=async(req,res)=>{
     }
 }
 
+taskController.getTaskById = async (req, res) => {
+    try {
+        const { id } = req.params;
+        const task = await Task.findById(id);
+        if (!task) {
+            return res.status(404).json({ status: 'fail', message: 'Task not found' });
+        }
+        res.status(200).json({ status: 'ok', data: task });
+    } catch (err) {
+        res.status(400).json({ status: 'fail', data: err });
+    }
+};
+
 // updateTask - 할 일 업데이트
 taskController.updateTask = async (req, res) => {
     try {
