@@ -19,8 +19,7 @@ app.use("/api", indexRouter);
 
 const mongoURI = MONGODB_URI_PROD;
 
-const port = process.env.PORT || 5001;  
-
+const port = process.env.PORT || 5001;
 app.listen(port, () => {
   console.log(`Server is running on port ${port}`);
 });
