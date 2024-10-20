@@ -26,7 +26,8 @@ const PORT = process.env.PORT || 5000;
 console.log("MongoDB URI:", MONGODB_URI_PROD);
 
 // MongoDB 연결 및 서버 시작
-mongoose.connect(MONGODB_URI_PROD)
+mongoose
+    .connect(MONGODB_URI_PROD)
     .then(() => {
         console.log('mongoose connected');
         // 서버 시작
