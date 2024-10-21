@@ -9,11 +9,10 @@ const MONGODB_URI_PROD = process.env.MONGODB_URI_PROD;
 
 app.use(bodyParser.json());
 
-// CORS 설정
 app.use(cors({
     origin: '*', 
     methods: ['GET', 'POST', 'PUT', 'DELETE'],
-    allowedHeaders: ['Content-Type']
+    allowedHeaders: ['Content-Type', 'Authorization']
 }));
 
 // API 라우터 설정
