@@ -5,7 +5,8 @@ const taskController = {}
 taskController.createTask=async(req,res)=>{
     try{
         const { task, isComplete } = req.body;
-        const newTask = new Task({task, isComplete})
+        const {userId} = req
+        const newTask = new Task({task, isComplete, author:userId})
         await newTask.save();
         res.status(200).json({status:'ok', data:newTask});
     } catch(err) {
@@ -15,7 +16,8 @@ taskController.createTask=async(req,res)=>{
 
 taskController.getTask=async(req,res)=>{
     try{
-        const taskList = await Task.find({}).select("-_v");
+        // const taskList = await Task.find({}).select("-_v");
+        const taskList = await Task.find({}).populate("author")
         res.status(200).json({status:'ok', data:taskList});
     } catch(err) {
         res.status(400).json({status:'fail', data:err});
@@ -35,7 +37,6 @@ taskController.getTaskById = async (req, res) => {
     }
 };
 
-// updateTask - 할 일 업데이트
 taskController.updateTask = async (req, res) => {
     try {
         const { id } = req.params;
@@ -50,7 +51,6 @@ taskController.updateTask = async (req, res) => {
     }
 };
 
-// deleteTask - 할 일 삭제
 taskController.deleteTask = async (req, res) => {
     try {
         const { id } = req.params;
